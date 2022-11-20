@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://towardsdatascience.com/media/1b833629c3e7e992d16b960a89f318a9 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Medium</title><meta name="twitter:widgets:csp" content="on"><meta name="robots" content="noindex"><!--<base target="_blank">--><base href="." target="_blank"><style>body {text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: "ff-tisa-web-pro", Georgia, Cambria, "Times New Roman", Times, serif; font-weight: 400; color: #333332; font-size: 18px; line-height: 1.4; margin: 0; background-color: white; overflow: hidden;}iframe {max-width: 100%;}</style></head><body data-new-gr-c-s-check-loaded="14.1087.0" data-gr-ext-installed=""><style>.gist .gist-file { margin-bottom: 0 !important; }.gist { text-rendering: auto; }</style><script src="./2616a94542b852744a594507ef013eec.js" charset="utf-8"></script><link rel="stylesheet" href="./gist-embed-73138c5999f2.css"><div id="gist109383891" class="gist">
+    <div class="gist-file" translate="no">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-simple_dataset_segmentation-py" class="file my-2">
+    
+    <div itemprop="text" class="Box-body p-0 blob-wrapper data type-python  ">
+
+        
+<div class="js-check-bidi js-blob-code-container blob-code-content">
+
+  <template class="js-file-alert-template"></template>
+<template class="js-line-alert-template"></template>
+
+  <table data-hpc="" class="highlight tab-size js-file-line-container js-code-nav-container js-tagsearch-file" data-tab-size="8" data-paste-markdown-skip="" data-tagsearch-lang="Python" data-tagsearch-path="simple_dataset_segmentation.py">
+        <tbody><tr>
+          <td id="file-simple_dataset_segmentation-py-L1" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="1"></td>
+          <td id="file-simple_dataset_segmentation-py-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-s1">numpy</span> <span class="pl-k">as</span> <span class="pl-s1">np</span></td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L2" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="2"></td>
+          <td id="file-simple_dataset_segmentation-py-LC2" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L3" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="3"></td>
+          <td id="file-simple_dataset_segmentation-py-LC3" class="blob-code blob-code-inner js-file-line"><span class="pl-k">from</span> <span class="pl-s1">transformations</span> <span class="pl-k">import</span> <span class="pl-v">ComposeDouble</span>, <span class="pl-v">FunctionWrapperDouble</span>, <span class="pl-s1">create_dense_target</span>, <span class="pl-s1">normalize_01</span></td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L4" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="4"></td>
+          <td id="file-simple_dataset_segmentation-py-LC4" class="blob-code blob-code-inner js-file-line"><span class="pl-k">from</span> <span class="pl-s1">customdatasets</span> <span class="pl-k">import</span> <span class="pl-v">SegmentationDataSet1</span></td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L5" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="5"></td>
+          <td id="file-simple_dataset_segmentation-py-LC5" class="blob-code blob-code-inner js-file-line"><span class="pl-k">from</span> <span class="pl-s1">torch</span>.<span class="pl-s1">utils</span>.<span class="pl-s1">data</span> <span class="pl-k">import</span> <span class="pl-v">DataLoader</span></td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L6" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="6"></td>
+          <td id="file-simple_dataset_segmentation-py-LC6" class="blob-code blob-code-inner js-file-line"><span class="pl-k">from</span> <span class="pl-s1">sklearn</span>.<span class="pl-s1">model_selection</span> <span class="pl-k">import</span> <span class="pl-s1">train_test_split</span></td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L7" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="7"></td>
+          <td id="file-simple_dataset_segmentation-py-LC7" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-s1">pathlib</span></td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L8" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="8"></td>
+          <td id="file-simple_dataset_segmentation-py-LC8" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L9" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="9"></td>
+          <td id="file-simple_dataset_segmentation-py-LC9" class="blob-code blob-code-inner js-file-line"><span class="pl-c"># root directory</span></td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L10" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="10"></td>
+          <td id="file-simple_dataset_segmentation-py-LC10" class="blob-code blob-code-inner js-file-line"><span class="pl-s1">root</span> <span class="pl-c1">=</span> <span class="pl-s1">pathlib</span>.<span class="pl-v">Path</span>.<span class="pl-en">cwd</span>() <span class="pl-c1">/</span> <span class="pl-s">'Carvana'</span></td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L11" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="11"></td>
+          <td id="file-simple_dataset_segmentation-py-LC11" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L12" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="12"></td>
+          <td id="file-simple_dataset_segmentation-py-LC12" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L13" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="13"></td>
+          <td id="file-simple_dataset_segmentation-py-LC13" class="blob-code blob-code-inner js-file-line"><span class="pl-k">def</span> <span class="pl-en">get_filenames_of_path</span>(<span class="pl-s1">path</span>: <span class="pl-s1">pathlib</span>.<span class="pl-v">Path</span>, <span class="pl-s1">ext</span>: <span class="pl-s1">str</span> <span class="pl-c1">=</span> <span class="pl-s">'*'</span>):</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L14" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="14"></td>
+          <td id="file-simple_dataset_segmentation-py-LC14" class="blob-code blob-code-inner js-file-line">    <span class="pl-s">"""Returns a list of files in a directory/path. Uses pathlib."""</span></td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L15" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="15"></td>
+          <td id="file-simple_dataset_segmentation-py-LC15" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">filenames</span> <span class="pl-c1">=</span> [<span class="pl-s1">file</span> <span class="pl-k">for</span> <span class="pl-s1">file</span> <span class="pl-c1">in</span> <span class="pl-s1">path</span>.<span class="pl-en">glob</span>(<span class="pl-s1">ext</span>) <span class="pl-k">if</span> <span class="pl-s1">file</span>.<span class="pl-en">is_file</span>()]</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L16" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="16"></td>
+          <td id="file-simple_dataset_segmentation-py-LC16" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">return</span> <span class="pl-s1">filenames</span></td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L17" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="17"></td>
+          <td id="file-simple_dataset_segmentation-py-LC17" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L18" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="18"></td>
+          <td id="file-simple_dataset_segmentation-py-LC18" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L19" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="19"></td>
+          <td id="file-simple_dataset_segmentation-py-LC19" class="blob-code blob-code-inner js-file-line"><span class="pl-c"># input and target files</span></td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L20" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="20"></td>
+          <td id="file-simple_dataset_segmentation-py-LC20" class="blob-code blob-code-inner js-file-line"><span class="pl-s1">inputs</span> <span class="pl-c1">=</span> <span class="pl-en">get_filenames_of_path</span>(<span class="pl-s1">root</span> <span class="pl-c1">/</span> <span class="pl-s">'Input'</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L21" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="21"></td>
+          <td id="file-simple_dataset_segmentation-py-LC21" class="blob-code blob-code-inner js-file-line"><span class="pl-s1">targets</span> <span class="pl-c1">=</span> <span class="pl-en">get_filenames_of_path</span>(<span class="pl-s1">root</span> <span class="pl-c1">/</span> <span class="pl-s">'Target'</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L22" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="22"></td>
+          <td id="file-simple_dataset_segmentation-py-LC22" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L23" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="23"></td>
+          <td id="file-simple_dataset_segmentation-py-LC23" class="blob-code blob-code-inner js-file-line"><span class="pl-c"># training transformations and augmentations</span></td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L24" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="24"></td>
+          <td id="file-simple_dataset_segmentation-py-LC24" class="blob-code blob-code-inner js-file-line"><span class="pl-s1">transforms</span> <span class="pl-c1">=</span> <span class="pl-v">ComposeDouble</span>([</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L25" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="25"></td>
+          <td id="file-simple_dataset_segmentation-py-LC25" class="blob-code blob-code-inner js-file-line">    <span class="pl-v">FunctionWrapperDouble</span>(<span class="pl-s1">create_dense_target</span>, <span class="pl-s1">input</span><span class="pl-c1">=</span><span class="pl-c1">False</span>, <span class="pl-s1">target</span><span class="pl-c1">=</span><span class="pl-c1">True</span>),</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L26" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="26"></td>
+          <td id="file-simple_dataset_segmentation-py-LC26" class="blob-code blob-code-inner js-file-line">    <span class="pl-v">FunctionWrapperDouble</span>(<span class="pl-s1">np</span>.<span class="pl-s1">moveaxis</span>, <span class="pl-s1">input</span><span class="pl-c1">=</span><span class="pl-c1">True</span>, <span class="pl-s1">target</span><span class="pl-c1">=</span><span class="pl-c1">False</span>, <span class="pl-s1">source</span><span class="pl-c1">=</span><span class="pl-c1">-</span><span class="pl-c1">1</span>, <span class="pl-s1">destination</span><span class="pl-c1">=</span><span class="pl-c1">0</span>),</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L27" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="27"></td>
+          <td id="file-simple_dataset_segmentation-py-LC27" class="blob-code blob-code-inner js-file-line">    <span class="pl-v">FunctionWrapperDouble</span>(<span class="pl-s1">normalize_01</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L28" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="28"></td>
+          <td id="file-simple_dataset_segmentation-py-LC28" class="blob-code blob-code-inner js-file-line">])</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L29" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="29"></td>
+          <td id="file-simple_dataset_segmentation-py-LC29" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L30" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="30"></td>
+          <td id="file-simple_dataset_segmentation-py-LC30" class="blob-code blob-code-inner js-file-line"><span class="pl-c"># random seed</span></td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L31" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="31"></td>
+          <td id="file-simple_dataset_segmentation-py-LC31" class="blob-code blob-code-inner js-file-line"><span class="pl-s1">random_seed</span> <span class="pl-c1">=</span> <span class="pl-c1">42</span></td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L32" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="32"></td>
+          <td id="file-simple_dataset_segmentation-py-LC32" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L33" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="33"></td>
+          <td id="file-simple_dataset_segmentation-py-LC33" class="blob-code blob-code-inner js-file-line"><span class="pl-c"># split dataset into training set and validation set</span></td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L34" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="34"></td>
+          <td id="file-simple_dataset_segmentation-py-LC34" class="blob-code blob-code-inner js-file-line"><span class="pl-s1">train_size</span> <span class="pl-c1">=</span> <span class="pl-c1">0.8</span>  <span class="pl-c"># 80:20 split</span></td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L35" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="35"></td>
+          <td id="file-simple_dataset_segmentation-py-LC35" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L36" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="36"></td>
+          <td id="file-simple_dataset_segmentation-py-LC36" class="blob-code blob-code-inner js-file-line"><span class="pl-s1">inputs_train</span>, <span class="pl-s1">inputs_valid</span> <span class="pl-c1">=</span> <span class="pl-en">train_test_split</span>(</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L37" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="37"></td>
+          <td id="file-simple_dataset_segmentation-py-LC37" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">inputs</span>,</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L38" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="38"></td>
+          <td id="file-simple_dataset_segmentation-py-LC38" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">random_state</span><span class="pl-c1">=</span><span class="pl-s1">random_seed</span>,</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L39" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="39"></td>
+          <td id="file-simple_dataset_segmentation-py-LC39" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">train_size</span><span class="pl-c1">=</span><span class="pl-s1">train_size</span>,</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L40" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="40"></td>
+          <td id="file-simple_dataset_segmentation-py-LC40" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">shuffle</span><span class="pl-c1">=</span><span class="pl-c1">True</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L41" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="41"></td>
+          <td id="file-simple_dataset_segmentation-py-LC41" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L42" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="42"></td>
+          <td id="file-simple_dataset_segmentation-py-LC42" class="blob-code blob-code-inner js-file-line"><span class="pl-s1">targets_train</span>, <span class="pl-s1">targets_valid</span> <span class="pl-c1">=</span> <span class="pl-en">train_test_split</span>(</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L43" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="43"></td>
+          <td id="file-simple_dataset_segmentation-py-LC43" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">targets</span>,</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L44" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="44"></td>
+          <td id="file-simple_dataset_segmentation-py-LC44" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">random_state</span><span class="pl-c1">=</span><span class="pl-s1">random_seed</span>,</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L45" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="45"></td>
+          <td id="file-simple_dataset_segmentation-py-LC45" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">train_size</span><span class="pl-c1">=</span><span class="pl-s1">train_size</span>,</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L46" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="46"></td>
+          <td id="file-simple_dataset_segmentation-py-LC46" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">shuffle</span><span class="pl-c1">=</span><span class="pl-c1">True</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L47" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="47"></td>
+          <td id="file-simple_dataset_segmentation-py-LC47" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L48" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="48"></td>
+          <td id="file-simple_dataset_segmentation-py-LC48" class="blob-code blob-code-inner js-file-line"><span class="pl-c"># dataset training</span></td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L49" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="49"></td>
+          <td id="file-simple_dataset_segmentation-py-LC49" class="blob-code blob-code-inner js-file-line"><span class="pl-s1">dataset_train</span> <span class="pl-c1">=</span> <span class="pl-v">SegmentationDataSet1</span>(<span class="pl-s1">inputs</span><span class="pl-c1">=</span><span class="pl-s1">inputs_train</span>,</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L50" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="50"></td>
+          <td id="file-simple_dataset_segmentation-py-LC50" class="blob-code blob-code-inner js-file-line">                                    <span class="pl-s1">targets</span><span class="pl-c1">=</span><span class="pl-s1">targets_train</span>,</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L51" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="51"></td>
+          <td id="file-simple_dataset_segmentation-py-LC51" class="blob-code blob-code-inner js-file-line">                                    <span class="pl-s1">transform</span><span class="pl-c1">=</span><span class="pl-s1">transforms</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L52" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="52"></td>
+          <td id="file-simple_dataset_segmentation-py-LC52" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L53" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="53"></td>
+          <td id="file-simple_dataset_segmentation-py-LC53" class="blob-code blob-code-inner js-file-line"><span class="pl-c"># dataset validation</span></td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L54" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="54"></td>
+          <td id="file-simple_dataset_segmentation-py-LC54" class="blob-code blob-code-inner js-file-line"><span class="pl-s1">dataset_valid</span> <span class="pl-c1">=</span> <span class="pl-v">SegmentationDataSet1</span>(<span class="pl-s1">inputs</span><span class="pl-c1">=</span><span class="pl-s1">inputs_valid</span>,</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L55" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="55"></td>
+          <td id="file-simple_dataset_segmentation-py-LC55" class="blob-code blob-code-inner js-file-line">                                    <span class="pl-s1">targets</span><span class="pl-c1">=</span><span class="pl-s1">targets_valid</span>,</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L56" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="56"></td>
+          <td id="file-simple_dataset_segmentation-py-LC56" class="blob-code blob-code-inner js-file-line">                                    <span class="pl-s1">transform</span><span class="pl-c1">=</span><span class="pl-s1">transforms</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L57" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="57"></td>
+          <td id="file-simple_dataset_segmentation-py-LC57" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L58" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="58"></td>
+          <td id="file-simple_dataset_segmentation-py-LC58" class="blob-code blob-code-inner js-file-line"><span class="pl-c"># dataloader training</span></td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L59" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="59"></td>
+          <td id="file-simple_dataset_segmentation-py-LC59" class="blob-code blob-code-inner js-file-line"><span class="pl-s1">dataloader_training</span> <span class="pl-c1">=</span> <span class="pl-v">DataLoader</span>(<span class="pl-s1">dataset</span><span class="pl-c1">=</span><span class="pl-s1">dataset_train</span>,</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L60" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="60"></td>
+          <td id="file-simple_dataset_segmentation-py-LC60" class="blob-code blob-code-inner js-file-line">                                 <span class="pl-s1">batch_size</span><span class="pl-c1">=</span><span class="pl-c1">2</span>,</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L61" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="61"></td>
+          <td id="file-simple_dataset_segmentation-py-LC61" class="blob-code blob-code-inner js-file-line">                                 <span class="pl-s1">shuffle</span><span class="pl-c1">=</span><span class="pl-c1">True</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L62" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="62"></td>
+          <td id="file-simple_dataset_segmentation-py-LC62" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L63" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="63"></td>
+          <td id="file-simple_dataset_segmentation-py-LC63" class="blob-code blob-code-inner js-file-line"><span class="pl-c"># dataloader validation</span></td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L64" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="64"></td>
+          <td id="file-simple_dataset_segmentation-py-LC64" class="blob-code blob-code-inner js-file-line"><span class="pl-s1">dataloader_validation</span> <span class="pl-c1">=</span> <span class="pl-v">DataLoader</span>(<span class="pl-s1">dataset</span><span class="pl-c1">=</span><span class="pl-s1">dataset_valid</span>,</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L65" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="65"></td>
+          <td id="file-simple_dataset_segmentation-py-LC65" class="blob-code blob-code-inner js-file-line">                                   <span class="pl-s1">batch_size</span><span class="pl-c1">=</span><span class="pl-c1">2</span>,</td>
+        </tr>
+        <tr>
+          <td id="file-simple_dataset_segmentation-py-L66" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="66"></td>
+          <td id="file-simple_dataset_segmentation-py-LC66" class="blob-code blob-code-inner js-file-line">                                   <span class="pl-s1">shuffle</span><span class="pl-c1">=</span><span class="pl-c1">True</span>)</td>
+        </tr>
+  </tbody></table>
+</div>
+
+
+    </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/johschmidt42/2616a94542b852744a594507ef013eec/raw/dca1174906a559b07654fcd2ab8742720dca7865/simple_dataset_segmentation.py" style="float:right">view raw</a>
+        <a href="https://gist.github.com/johschmidt42/2616a94542b852744a594507ef013eec#file-simple_dataset_segmentation-py">
+          simple_dataset_segmentation.py
+        </a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+<script>var height = -1; var delayMs = 200; if (document) {document.domain = document.domain;}function notifyResize(height) {height = height ? height : document.documentElement.offsetHeight; var resized = false; if (window.donkey && donkey.resize) {donkey.resize(height);var elements = document.getElementsByClassName("gist-data"); for (var i = 0; i < elements.length; i++) {elements[i].style.overflow = "visible"}resized = true;}if (parent && parent._resizeIframe) {var obj = {iframe: window.frameElement, height: height}; parent._resizeIframe(obj); resized = true;}if (window.location && window.location.hash === "#amp=1" && window.parent && window.parent.postMessage) {window.parent.postMessage({sentinel: "amp", type: "embed-size", height: height}, "*");}if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.resize) {window.webkit.messageHandlers.resize.postMessage(height); resized = true;}return resized;}function maybeResize() {try {if (document.documentElement.offsetHeight != height && notifyResize()) {height = document.documentElement.offsetHeight;}delayMs = Math.min(delayMs * 2, 1000000); setTimeout(maybeResize, delayMs);} catch(error) {console.log('maybeResize error: ', error)}}maybeResize();</script><script defer="" src="./vaafb692b2aea4879b33c060e79fe94621666317369993" integrity="sha512-0ahDYl866UMhKuYcW078ScMalXqtFJggm7TmlUtp0UlD4eQk0Ixfnm5ykXKvGJNFjLMoortdseTfsRT8oCfgGA==" data-cf-beacon="{&quot;rayId&quot;:&quot;76c245aef80656bc&quot;,&quot;token&quot;:&quot;0b5f665943484354a59c39c6833f7078&quot;,&quot;version&quot;:&quot;2022.11.0&quot;,&quot;si&quot;:100}" crossorigin="anonymous"></script>
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>

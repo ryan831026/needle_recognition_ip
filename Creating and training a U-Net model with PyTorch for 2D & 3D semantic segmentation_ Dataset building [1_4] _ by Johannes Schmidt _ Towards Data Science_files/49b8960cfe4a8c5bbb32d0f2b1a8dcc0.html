@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://towardsdatascience.com/media/49b8960cfe4a8c5bbb32d0f2b1a8dcc0 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Medium</title><meta name="twitter:widgets:csp" content="on"><meta name="robots" content="noindex"><!--<base target="_blank">--><base href="." target="_blank"><style>body {text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: "ff-tisa-web-pro", Georgia, Cambria, "Times New Roman", Times, serif; font-weight: 400; color: #333332; font-size: 18px; line-height: 1.4; margin: 0; background-color: white; overflow: hidden;}iframe {max-width: 100%;}</style></head><body data-new-gr-c-s-check-loaded="14.1087.0" data-gr-ext-installed=""><style>.gist .gist-file { margin-bottom: 0 !important; }.gist { text-rendering: auto; }</style><script src="./67ea1227569c4b7fcd04e4f6477a2a2d.js" charset="utf-8"></script><link rel="stylesheet" href="./gist-embed-73138c5999f2.css"><div id="gist106614283" class="gist">
+    <div class="gist-file" translate="no">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-transformations-py" class="file my-2">
+    
+    <div itemprop="text" class="Box-body p-0 blob-wrapper data type-python  ">
+
+        
+<div class="js-check-bidi js-blob-code-container blob-code-content">
+
+  <template class="js-file-alert-template"></template>
+<template class="js-line-alert-template"></template>
+
+  <table data-hpc="" class="highlight tab-size js-file-line-container js-code-nav-container js-tagsearch-file" data-tab-size="8" data-paste-markdown-skip="" data-tagsearch-lang="Python" data-tagsearch-path="transformations.py">
+        <tbody><tr>
+          <td id="file-transformations-py-L1" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="1"></td>
+          <td id="file-transformations-py-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">from</span> <span class="pl-s1">typing</span> <span class="pl-k">import</span> <span class="pl-v">List</span>, <span class="pl-v">Callable</span>, <span class="pl-v">Tuple</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L2" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="2"></td>
+          <td id="file-transformations-py-LC2" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L3" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="3"></td>
+          <td id="file-transformations-py-LC3" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-s1">numpy</span> <span class="pl-k">as</span> <span class="pl-s1">np</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L4" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="4"></td>
+          <td id="file-transformations-py-LC4" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-s1">albumentations</span> <span class="pl-k">as</span> <span class="pl-v">A</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L5" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="5"></td>
+          <td id="file-transformations-py-LC5" class="blob-code blob-code-inner js-file-line"><span class="pl-k">from</span> <span class="pl-s1">sklearn</span>.<span class="pl-s1">externals</span>.<span class="pl-s1">_pilutil</span> <span class="pl-k">import</span> <span class="pl-s1">bytescale</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L6" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="6"></td>
+          <td id="file-transformations-py-LC6" class="blob-code blob-code-inner js-file-line"><span class="pl-k">from</span> <span class="pl-s1">skimage</span>.<span class="pl-s1">util</span> <span class="pl-k">import</span> <span class="pl-s1">crop</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L7" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="7"></td>
+          <td id="file-transformations-py-LC7" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L8" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="8"></td>
+          <td id="file-transformations-py-LC8" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L9" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="9"></td>
+          <td id="file-transformations-py-LC9" class="blob-code blob-code-inner js-file-line"><span class="pl-k">def</span> <span class="pl-en">normalize_01</span>(<span class="pl-s1">inp</span>: <span class="pl-s1">np</span>.<span class="pl-s1">ndarray</span>):</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L10" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="10"></td>
+          <td id="file-transformations-py-LC10" class="blob-code blob-code-inner js-file-line">    <span class="pl-s">"""Squash image input to the value range [0, 1] (no clipping)"""</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L11" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="11"></td>
+          <td id="file-transformations-py-LC11" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">inp_out</span> <span class="pl-c1">=</span> (<span class="pl-s1">inp</span> <span class="pl-c1">-</span> <span class="pl-s1">np</span>.<span class="pl-en">min</span>(<span class="pl-s1">inp</span>)) <span class="pl-c1">/</span> <span class="pl-s1">np</span>.<span class="pl-en">ptp</span>(<span class="pl-s1">inp</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L12" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="12"></td>
+          <td id="file-transformations-py-LC12" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">return</span> <span class="pl-s1">inp_out</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L13" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="13"></td>
+          <td id="file-transformations-py-LC13" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L14" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="14"></td>
+          <td id="file-transformations-py-LC14" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L15" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="15"></td>
+          <td id="file-transformations-py-LC15" class="blob-code blob-code-inner js-file-line"><span class="pl-k">def</span> <span class="pl-en">normalize</span>(<span class="pl-s1">inp</span>: <span class="pl-s1">np</span>.<span class="pl-s1">ndarray</span>, <span class="pl-s1">mean</span>: <span class="pl-s1">float</span>, <span class="pl-s1">std</span>: <span class="pl-s1">float</span>):</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L16" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="16"></td>
+          <td id="file-transformations-py-LC16" class="blob-code blob-code-inner js-file-line">    <span class="pl-s">"""Normalize based on mean and standard deviation."""</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L17" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="17"></td>
+          <td id="file-transformations-py-LC17" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">inp_out</span> <span class="pl-c1">=</span> (<span class="pl-s1">inp</span> <span class="pl-c1">-</span> <span class="pl-s1">mean</span>) <span class="pl-c1">/</span> <span class="pl-s1">std</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L18" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="18"></td>
+          <td id="file-transformations-py-LC18" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">return</span> <span class="pl-s1">inp_out</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L19" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="19"></td>
+          <td id="file-transformations-py-LC19" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L20" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="20"></td>
+          <td id="file-transformations-py-LC20" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L21" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="21"></td>
+          <td id="file-transformations-py-LC21" class="blob-code blob-code-inner js-file-line"><span class="pl-k">def</span> <span class="pl-en">create_dense_target</span>(<span class="pl-s1">tar</span>: <span class="pl-s1">np</span>.<span class="pl-s1">ndarray</span>):</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L22" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="22"></td>
+          <td id="file-transformations-py-LC22" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">classes</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">unique</span>(<span class="pl-s1">tar</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L23" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="23"></td>
+          <td id="file-transformations-py-LC23" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">dummy</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">zeros_like</span>(<span class="pl-s1">tar</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L24" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="24"></td>
+          <td id="file-transformations-py-LC24" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">for</span> <span class="pl-s1">idx</span>, <span class="pl-s1">value</span> <span class="pl-c1">in</span> <span class="pl-en">enumerate</span>(<span class="pl-s1">classes</span>):</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L25" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="25"></td>
+          <td id="file-transformations-py-LC25" class="blob-code blob-code-inner js-file-line">        <span class="pl-s1">mask</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">where</span>(<span class="pl-s1">tar</span> <span class="pl-c1">==</span> <span class="pl-s1">value</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L26" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="26"></td>
+          <td id="file-transformations-py-LC26" class="blob-code blob-code-inner js-file-line">        <span class="pl-s1">dummy</span>[<span class="pl-s1">mask</span>] <span class="pl-c1">=</span> <span class="pl-s1">idx</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L27" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="27"></td>
+          <td id="file-transformations-py-LC27" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L28" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="28"></td>
+          <td id="file-transformations-py-LC28" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">return</span> <span class="pl-s1">dummy</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L29" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="29"></td>
+          <td id="file-transformations-py-LC29" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L30" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="30"></td>
+          <td id="file-transformations-py-LC30" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L31" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="31"></td>
+          <td id="file-transformations-py-LC31" class="blob-code blob-code-inner js-file-line"><span class="pl-k">def</span> <span class="pl-en">center_crop_to_size</span>(<span class="pl-s1">x</span>: <span class="pl-s1">np</span>.<span class="pl-s1">ndarray</span>,</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L32" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="32"></td>
+          <td id="file-transformations-py-LC32" class="blob-code blob-code-inner js-file-line">                        <span class="pl-s1">size</span>: <span class="pl-v">Tuple</span>,</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L33" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="33"></td>
+          <td id="file-transformations-py-LC33" class="blob-code blob-code-inner js-file-line">                        <span class="pl-s1">copy</span>: <span class="pl-s1">bool</span> <span class="pl-c1">=</span> <span class="pl-c1">False</span>,</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L34" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="34"></td>
+          <td id="file-transformations-py-LC34" class="blob-code blob-code-inner js-file-line">                        ) <span class="pl-c1">-&gt;</span> <span class="pl-s1">np</span>.<span class="pl-s1">ndarray</span>:</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L35" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="35"></td>
+          <td id="file-transformations-py-LC35" class="blob-code blob-code-inner js-file-line">    <span class="pl-s">"""</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L36" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="36"></td>
+          <td id="file-transformations-py-LC36" class="blob-code blob-code-inner js-file-line"><span class="pl-s">    Center crops a given array x to the size passed in the function.</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L37" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="37"></td>
+          <td id="file-transformations-py-LC37" class="blob-code blob-code-inner js-file-line"><span class="pl-s">    Expects even spatial dimensions!</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L38" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="38"></td>
+          <td id="file-transformations-py-LC38" class="blob-code blob-code-inner js-file-line"><span class="pl-s">    """</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L39" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="39"></td>
+          <td id="file-transformations-py-LC39" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">x_shape</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">array</span>(<span class="pl-s1">x</span>.<span class="pl-s1">shape</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L40" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="40"></td>
+          <td id="file-transformations-py-LC40" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">size</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">array</span>(<span class="pl-s1">size</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L41" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="41"></td>
+          <td id="file-transformations-py-LC41" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">params_list</span> <span class="pl-c1">=</span> ((<span class="pl-s1">x_shape</span> <span class="pl-c1">-</span> <span class="pl-s1">size</span>) <span class="pl-c1">/</span> <span class="pl-c1">2</span>).<span class="pl-en">astype</span>(<span class="pl-s1">np</span>.<span class="pl-s1">int</span>).<span class="pl-en">tolist</span>()</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L42" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="42"></td>
+          <td id="file-transformations-py-LC42" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">params_tuple</span> <span class="pl-c1">=</span> <span class="pl-en">tuple</span>([(<span class="pl-s1">i</span>, <span class="pl-s1">i</span>) <span class="pl-k">for</span> <span class="pl-s1">i</span> <span class="pl-c1">in</span> <span class="pl-s1">params_list</span>])</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L43" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="43"></td>
+          <td id="file-transformations-py-LC43" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">cropped_image</span> <span class="pl-c1">=</span> <span class="pl-en">crop</span>(<span class="pl-s1">x</span>, <span class="pl-s1">crop_width</span><span class="pl-c1">=</span><span class="pl-s1">params_tuple</span>, <span class="pl-s1">copy</span><span class="pl-c1">=</span><span class="pl-s1">copy</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L44" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="44"></td>
+          <td id="file-transformations-py-LC44" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">return</span> <span class="pl-s1">cropped_image</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L45" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="45"></td>
+          <td id="file-transformations-py-LC45" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L46" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="46"></td>
+          <td id="file-transformations-py-LC46" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L47" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="47"></td>
+          <td id="file-transformations-py-LC47" class="blob-code blob-code-inner js-file-line"><span class="pl-k">def</span> <span class="pl-en">re_normalize</span>(<span class="pl-s1">inp</span>: <span class="pl-s1">np</span>.<span class="pl-s1">ndarray</span>,</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L48" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="48"></td>
+          <td id="file-transformations-py-LC48" class="blob-code blob-code-inner js-file-line">                 <span class="pl-s1">low</span>: <span class="pl-s1">int</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span>,</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L49" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="49"></td>
+          <td id="file-transformations-py-LC49" class="blob-code blob-code-inner js-file-line">                 <span class="pl-s1">high</span>: <span class="pl-s1">int</span> <span class="pl-c1">=</span> <span class="pl-c1">255</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L50" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="50"></td>
+          <td id="file-transformations-py-LC50" class="blob-code blob-code-inner js-file-line">                 ):</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L51" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="51"></td>
+          <td id="file-transformations-py-LC51" class="blob-code blob-code-inner js-file-line">    <span class="pl-s">"""Normalize the data to a certain range. Default: [0-255]"""</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L52" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="52"></td>
+          <td id="file-transformations-py-LC52" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">inp_out</span> <span class="pl-c1">=</span> <span class="pl-en">bytescale</span>(<span class="pl-s1">inp</span>, <span class="pl-s1">low</span><span class="pl-c1">=</span><span class="pl-s1">low</span>, <span class="pl-s1">high</span><span class="pl-c1">=</span><span class="pl-s1">high</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L53" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="53"></td>
+          <td id="file-transformations-py-LC53" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">return</span> <span class="pl-s1">inp_out</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L54" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="54"></td>
+          <td id="file-transformations-py-LC54" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L55" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="55"></td>
+          <td id="file-transformations-py-LC55" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L56" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="56"></td>
+          <td id="file-transformations-py-LC56" class="blob-code blob-code-inner js-file-line"><span class="pl-k">def</span> <span class="pl-en">random_flip</span>(<span class="pl-s1">inp</span>: <span class="pl-s1">np</span>.<span class="pl-s1">ndarray</span>, <span class="pl-s1">tar</span>: <span class="pl-s1">np</span>.<span class="pl-s1">ndarray</span>, <span class="pl-s1">ndim_spatial</span>: <span class="pl-s1">int</span>):</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L57" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="57"></td>
+          <td id="file-transformations-py-LC57" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">flip_dims</span> <span class="pl-c1">=</span> [<span class="pl-s1">np</span>.<span class="pl-s1">random</span>.<span class="pl-en">randint</span>(<span class="pl-s1">low</span><span class="pl-c1">=</span><span class="pl-c1">0</span>, <span class="pl-s1">high</span><span class="pl-c1">=</span><span class="pl-c1">2</span>) <span class="pl-k">for</span> <span class="pl-s1">dim</span> <span class="pl-c1">in</span> <span class="pl-en">range</span>(<span class="pl-s1">ndim_spatial</span>)]</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L58" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="58"></td>
+          <td id="file-transformations-py-LC58" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L59" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="59"></td>
+          <td id="file-transformations-py-LC59" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">flip_dims_inp</span> <span class="pl-c1">=</span> <span class="pl-en">tuple</span>([<span class="pl-s1">i</span> <span class="pl-c1">+</span> <span class="pl-c1">1</span> <span class="pl-k">for</span> <span class="pl-s1">i</span>, <span class="pl-s1">element</span> <span class="pl-c1">in</span> <span class="pl-en">enumerate</span>(<span class="pl-s1">flip_dims</span>) <span class="pl-k">if</span> <span class="pl-s1">element</span> <span class="pl-c1">==</span> <span class="pl-c1">1</span>])</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L60" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="60"></td>
+          <td id="file-transformations-py-LC60" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">flip_dims_tar</span> <span class="pl-c1">=</span> <span class="pl-en">tuple</span>([<span class="pl-s1">i</span> <span class="pl-k">for</span> <span class="pl-s1">i</span>, <span class="pl-s1">element</span> <span class="pl-c1">in</span> <span class="pl-en">enumerate</span>(<span class="pl-s1">flip_dims</span>) <span class="pl-k">if</span> <span class="pl-s1">element</span> <span class="pl-c1">==</span> <span class="pl-c1">1</span>])</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L61" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="61"></td>
+          <td id="file-transformations-py-LC61" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L62" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="62"></td>
+          <td id="file-transformations-py-LC62" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">inp_flipped</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">flip</span>(<span class="pl-s1">inp</span>, <span class="pl-s1">axis</span><span class="pl-c1">=</span><span class="pl-s1">flip_dims_inp</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L63" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="63"></td>
+          <td id="file-transformations-py-LC63" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">tar_flipped</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">flip</span>(<span class="pl-s1">tar</span>, <span class="pl-s1">axis</span><span class="pl-c1">=</span><span class="pl-s1">flip_dims_tar</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L64" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="64"></td>
+          <td id="file-transformations-py-LC64" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L65" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="65"></td>
+          <td id="file-transformations-py-LC65" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">return</span> <span class="pl-s1">inp_flipped</span>, <span class="pl-s1">tar_flipped</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L66" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="66"></td>
+          <td id="file-transformations-py-LC66" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L67" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="67"></td>
+          <td id="file-transformations-py-LC67" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L68" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="68"></td>
+          <td id="file-transformations-py-LC68" class="blob-code blob-code-inner js-file-line"><span class="pl-k">class</span> <span class="pl-v">Repr</span>:</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L69" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="69"></td>
+          <td id="file-transformations-py-LC69" class="blob-code blob-code-inner js-file-line">    <span class="pl-s">"""Evaluable string representation of an object"""</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L70" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="70"></td>
+          <td id="file-transformations-py-LC70" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L71" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="71"></td>
+          <td id="file-transformations-py-LC71" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">def</span> <span class="pl-en">__repr__</span>(<span class="pl-s1">self</span>): <span class="pl-k">return</span> <span class="pl-s">f'<span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">self</span>.<span class="pl-s1">__class__</span>.<span class="pl-s1">__name__</span><span class="pl-kos">}</span></span>: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">self</span>.<span class="pl-s1">__dict__</span><span class="pl-kos">}</span></span>'</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L72" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="72"></td>
+          <td id="file-transformations-py-LC72" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L73" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="73"></td>
+          <td id="file-transformations-py-LC73" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L74" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="74"></td>
+          <td id="file-transformations-py-LC74" class="blob-code blob-code-inner js-file-line"><span class="pl-k">class</span> <span class="pl-v">FunctionWrapperSingle</span>(<span class="pl-v">Repr</span>):</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L75" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="75"></td>
+          <td id="file-transformations-py-LC75" class="blob-code blob-code-inner js-file-line">    <span class="pl-s">"""A function wrapper that returns a partial for input only."""</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L76" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="76"></td>
+          <td id="file-transformations-py-LC76" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L77" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="77"></td>
+          <td id="file-transformations-py-LC77" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">def</span> <span class="pl-en">__init__</span>(<span class="pl-s1">self</span>, <span class="pl-s1">function</span>: <span class="pl-v">Callable</span>, <span class="pl-c1">*</span><span class="pl-s1">args</span>, <span class="pl-c1">**</span><span class="pl-s1">kwargs</span>):</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L78" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="78"></td>
+          <td id="file-transformations-py-LC78" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">from</span> <span class="pl-s1">functools</span> <span class="pl-k">import</span> <span class="pl-s1">partial</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L79" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="79"></td>
+          <td id="file-transformations-py-LC79" class="blob-code blob-code-inner js-file-line">        <span class="pl-s1">self</span>.<span class="pl-s1">function</span> <span class="pl-c1">=</span> <span class="pl-en">partial</span>(<span class="pl-s1">function</span>, <span class="pl-c1">*</span><span class="pl-s1">args</span>, <span class="pl-c1">**</span><span class="pl-s1">kwargs</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L80" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="80"></td>
+          <td id="file-transformations-py-LC80" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L81" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="81"></td>
+          <td id="file-transformations-py-LC81" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">def</span> <span class="pl-en">__call__</span>(<span class="pl-s1">self</span>, <span class="pl-s1">inp</span>: <span class="pl-s1">np</span>.<span class="pl-s1">ndarray</span>): <span class="pl-k">return</span> <span class="pl-s1">self</span>.<span class="pl-en">function</span>(<span class="pl-s1">inp</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L82" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="82"></td>
+          <td id="file-transformations-py-LC82" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L83" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="83"></td>
+          <td id="file-transformations-py-LC83" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L84" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="84"></td>
+          <td id="file-transformations-py-LC84" class="blob-code blob-code-inner js-file-line"><span class="pl-k">class</span> <span class="pl-v">FunctionWrapperDouble</span>(<span class="pl-v">Repr</span>):</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L85" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="85"></td>
+          <td id="file-transformations-py-LC85" class="blob-code blob-code-inner js-file-line">    <span class="pl-s">"""A function wrapper that returns a partial for an input-target pair."""</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L86" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="86"></td>
+          <td id="file-transformations-py-LC86" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L87" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="87"></td>
+          <td id="file-transformations-py-LC87" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">def</span> <span class="pl-en">__init__</span>(<span class="pl-s1">self</span>, <span class="pl-s1">function</span>: <span class="pl-v">Callable</span>, <span class="pl-s1">input</span>: <span class="pl-s1">bool</span> <span class="pl-c1">=</span> <span class="pl-c1">True</span>, <span class="pl-s1">target</span>: <span class="pl-s1">bool</span> <span class="pl-c1">=</span> <span class="pl-c1">False</span>, <span class="pl-c1">*</span><span class="pl-s1">args</span>, <span class="pl-c1">**</span><span class="pl-s1">kwargs</span>):</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L88" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="88"></td>
+          <td id="file-transformations-py-LC88" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">from</span> <span class="pl-s1">functools</span> <span class="pl-k">import</span> <span class="pl-s1">partial</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L89" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="89"></td>
+          <td id="file-transformations-py-LC89" class="blob-code blob-code-inner js-file-line">        <span class="pl-s1">self</span>.<span class="pl-s1">function</span> <span class="pl-c1">=</span> <span class="pl-en">partial</span>(<span class="pl-s1">function</span>, <span class="pl-c1">*</span><span class="pl-s1">args</span>, <span class="pl-c1">**</span><span class="pl-s1">kwargs</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L90" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="90"></td>
+          <td id="file-transformations-py-LC90" class="blob-code blob-code-inner js-file-line">        <span class="pl-s1">self</span>.<span class="pl-s1">input</span> <span class="pl-c1">=</span> <span class="pl-s1">input</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L91" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="91"></td>
+          <td id="file-transformations-py-LC91" class="blob-code blob-code-inner js-file-line">        <span class="pl-s1">self</span>.<span class="pl-s1">target</span> <span class="pl-c1">=</span> <span class="pl-s1">target</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L92" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="92"></td>
+          <td id="file-transformations-py-LC92" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L93" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="93"></td>
+          <td id="file-transformations-py-LC93" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">def</span> <span class="pl-en">__call__</span>(<span class="pl-s1">self</span>, <span class="pl-s1">inp</span>: <span class="pl-s1">np</span>.<span class="pl-s1">ndarray</span>, <span class="pl-s1">tar</span>: <span class="pl-s1">dict</span>):</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L94" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="94"></td>
+          <td id="file-transformations-py-LC94" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">if</span> <span class="pl-s1">self</span>.<span class="pl-s1">input</span>: <span class="pl-s1">inp</span> <span class="pl-c1">=</span> <span class="pl-s1">self</span>.<span class="pl-en">function</span>(<span class="pl-s1">inp</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L95" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="95"></td>
+          <td id="file-transformations-py-LC95" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">if</span> <span class="pl-s1">self</span>.<span class="pl-s1">target</span>: <span class="pl-s1">tar</span> <span class="pl-c1">=</span> <span class="pl-s1">self</span>.<span class="pl-en">function</span>(<span class="pl-s1">tar</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L96" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="96"></td>
+          <td id="file-transformations-py-LC96" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">return</span> <span class="pl-s1">inp</span>, <span class="pl-s1">tar</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L97" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="97"></td>
+          <td id="file-transformations-py-LC97" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L98" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="98"></td>
+          <td id="file-transformations-py-LC98" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L99" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="99"></td>
+          <td id="file-transformations-py-LC99" class="blob-code blob-code-inner js-file-line"><span class="pl-k">class</span> <span class="pl-v">Compose</span>:</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L100" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="100"></td>
+          <td id="file-transformations-py-LC100" class="blob-code blob-code-inner js-file-line">    <span class="pl-s">"""Baseclass - composes several transforms together."""</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L101" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="101"></td>
+          <td id="file-transformations-py-LC101" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L102" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="102"></td>
+          <td id="file-transformations-py-LC102" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">def</span> <span class="pl-en">__init__</span>(<span class="pl-s1">self</span>, <span class="pl-s1">transforms</span>: <span class="pl-v">List</span>[<span class="pl-v">Callable</span>]):</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L103" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="103"></td>
+          <td id="file-transformations-py-LC103" class="blob-code blob-code-inner js-file-line">        <span class="pl-s1">self</span>.<span class="pl-s1">transforms</span> <span class="pl-c1">=</span> <span class="pl-s1">transforms</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L104" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="104"></td>
+          <td id="file-transformations-py-LC104" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L105" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="105"></td>
+          <td id="file-transformations-py-LC105" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">def</span> <span class="pl-en">__repr__</span>(<span class="pl-s1">self</span>): <span class="pl-k">return</span> <span class="pl-en">str</span>([<span class="pl-s1">transform</span> <span class="pl-k">for</span> <span class="pl-s1">transform</span> <span class="pl-c1">in</span> <span class="pl-s1">self</span>.<span class="pl-s1">transforms</span>])</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L106" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="106"></td>
+          <td id="file-transformations-py-LC106" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L107" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="107"></td>
+          <td id="file-transformations-py-LC107" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L108" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="108"></td>
+          <td id="file-transformations-py-LC108" class="blob-code blob-code-inner js-file-line"><span class="pl-k">class</span> <span class="pl-v">ComposeDouble</span>(<span class="pl-v">Compose</span>):</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L109" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="109"></td>
+          <td id="file-transformations-py-LC109" class="blob-code blob-code-inner js-file-line">    <span class="pl-s">"""Composes transforms for input-target pairs."""</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L110" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="110"></td>
+          <td id="file-transformations-py-LC110" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L111" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="111"></td>
+          <td id="file-transformations-py-LC111" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">def</span> <span class="pl-en">__call__</span>(<span class="pl-s1">self</span>, <span class="pl-s1">inp</span>: <span class="pl-s1">np</span>.<span class="pl-s1">ndarray</span>, <span class="pl-s1">target</span>: <span class="pl-s1">dict</span>):</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L112" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="112"></td>
+          <td id="file-transformations-py-LC112" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">for</span> <span class="pl-s1">t</span> <span class="pl-c1">in</span> <span class="pl-s1">self</span>.<span class="pl-s1">transforms</span>:</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L113" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="113"></td>
+          <td id="file-transformations-py-LC113" class="blob-code blob-code-inner js-file-line">            <span class="pl-s1">inp</span>, <span class="pl-s1">target</span> <span class="pl-c1">=</span> <span class="pl-en">t</span>(<span class="pl-s1">inp</span>, <span class="pl-s1">target</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L114" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="114"></td>
+          <td id="file-transformations-py-LC114" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">return</span> <span class="pl-s1">inp</span>, <span class="pl-s1">target</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L115" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="115"></td>
+          <td id="file-transformations-py-LC115" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L116" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="116"></td>
+          <td id="file-transformations-py-LC116" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L117" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="117"></td>
+          <td id="file-transformations-py-LC117" class="blob-code blob-code-inner js-file-line"><span class="pl-k">class</span> <span class="pl-v">ComposeSingle</span>(<span class="pl-v">Compose</span>):</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L118" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="118"></td>
+          <td id="file-transformations-py-LC118" class="blob-code blob-code-inner js-file-line">    <span class="pl-s">"""Composes transforms for input only."""</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L119" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="119"></td>
+          <td id="file-transformations-py-LC119" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L120" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="120"></td>
+          <td id="file-transformations-py-LC120" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">def</span> <span class="pl-en">__call__</span>(<span class="pl-s1">self</span>, <span class="pl-s1">inp</span>: <span class="pl-s1">np</span>.<span class="pl-s1">ndarray</span>):</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L121" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="121"></td>
+          <td id="file-transformations-py-LC121" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">for</span> <span class="pl-s1">t</span> <span class="pl-c1">in</span> <span class="pl-s1">self</span>.<span class="pl-s1">transforms</span>:</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L122" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="122"></td>
+          <td id="file-transformations-py-LC122" class="blob-code blob-code-inner js-file-line">            <span class="pl-s1">inp</span> <span class="pl-c1">=</span> <span class="pl-en">t</span>(<span class="pl-s1">inp</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L123" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="123"></td>
+          <td id="file-transformations-py-LC123" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">return</span> <span class="pl-s1">inp</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L124" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="124"></td>
+          <td id="file-transformations-py-LC124" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L125" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="125"></td>
+          <td id="file-transformations-py-LC125" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L126" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="126"></td>
+          <td id="file-transformations-py-LC126" class="blob-code blob-code-inner js-file-line"><span class="pl-k">class</span> <span class="pl-v">AlbuSeg2d</span>(<span class="pl-v">Repr</span>):</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L127" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="127"></td>
+          <td id="file-transformations-py-LC127" class="blob-code blob-code-inner js-file-line">    <span class="pl-s">"""</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L128" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="128"></td>
+          <td id="file-transformations-py-LC128" class="blob-code blob-code-inner js-file-line"><span class="pl-s">    Wrapper for albumentations' segmentation-compatible 2D augmentations.</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L129" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="129"></td>
+          <td id="file-transformations-py-LC129" class="blob-code blob-code-inner js-file-line"><span class="pl-s">    Wraps an augmentation so it can be used within the provided transform pipeline.</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L130" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="130"></td>
+          <td id="file-transformations-py-LC130" class="blob-code blob-code-inner js-file-line"><span class="pl-s">    See https://github.com/albu/albumentations for more information.</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L131" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="131"></td>
+          <td id="file-transformations-py-LC131" class="blob-code blob-code-inner js-file-line"><span class="pl-s">    Expected input: (C, spatial_dims)</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L132" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="132"></td>
+          <td id="file-transformations-py-LC132" class="blob-code blob-code-inner js-file-line"><span class="pl-s">    Expected target: (spatial_dims) -&gt; No (C)hannel dimension</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L133" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="133"></td>
+          <td id="file-transformations-py-LC133" class="blob-code blob-code-inner js-file-line"><span class="pl-s">    """</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L134" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="134"></td>
+          <td id="file-transformations-py-LC134" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">def</span> <span class="pl-en">__init__</span>(<span class="pl-s1">self</span>, <span class="pl-s1">albumentation</span>: <span class="pl-v">Callable</span>):</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L135" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="135"></td>
+          <td id="file-transformations-py-LC135" class="blob-code blob-code-inner js-file-line">        <span class="pl-s1">self</span>.<span class="pl-s1">albumentation</span> <span class="pl-c1">=</span> <span class="pl-s1">albumentation</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L136" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="136"></td>
+          <td id="file-transformations-py-LC136" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L137" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="137"></td>
+          <td id="file-transformations-py-LC137" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">def</span> <span class="pl-en">__call__</span>(<span class="pl-s1">self</span>, <span class="pl-s1">inp</span>: <span class="pl-s1">np</span>.<span class="pl-s1">ndarray</span>, <span class="pl-s1">tar</span>: <span class="pl-s1">np</span>.<span class="pl-s1">ndarray</span>):</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L138" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="138"></td>
+          <td id="file-transformations-py-LC138" class="blob-code blob-code-inner js-file-line">        <span class="pl-c"># input, target</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L139" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="139"></td>
+          <td id="file-transformations-py-LC139" class="blob-code blob-code-inner js-file-line">        <span class="pl-s1">out_dict</span> <span class="pl-c1">=</span> <span class="pl-s1">self</span>.<span class="pl-en">albumentation</span>(<span class="pl-s1">image</span><span class="pl-c1">=</span><span class="pl-s1">inp</span>, <span class="pl-s1">mask</span><span class="pl-c1">=</span><span class="pl-s1">tar</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L140" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="140"></td>
+          <td id="file-transformations-py-LC140" class="blob-code blob-code-inner js-file-line">        <span class="pl-s1">input_out</span> <span class="pl-c1">=</span> <span class="pl-s1">out_dict</span>[<span class="pl-s">'image'</span>]</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L141" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="141"></td>
+          <td id="file-transformations-py-LC141" class="blob-code blob-code-inner js-file-line">        <span class="pl-s1">target_out</span> <span class="pl-c1">=</span> <span class="pl-s1">out_dict</span>[<span class="pl-s">'mask'</span>]</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L142" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="142"></td>
+          <td id="file-transformations-py-LC142" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L143" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="143"></td>
+          <td id="file-transformations-py-LC143" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">return</span> <span class="pl-s1">input_out</span>, <span class="pl-s1">target_out</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L144" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="144"></td>
+          <td id="file-transformations-py-LC144" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L145" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="145"></td>
+          <td id="file-transformations-py-LC145" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L146" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="146"></td>
+          <td id="file-transformations-py-LC146" class="blob-code blob-code-inner js-file-line"><span class="pl-k">class</span> <span class="pl-v">AlbuSeg3d</span>(<span class="pl-v">Repr</span>):</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L147" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="147"></td>
+          <td id="file-transformations-py-LC147" class="blob-code blob-code-inner js-file-line">    <span class="pl-s">"""</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L148" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="148"></td>
+          <td id="file-transformations-py-LC148" class="blob-code blob-code-inner js-file-line"><span class="pl-s">    Wrapper for albumentations' segmentation-compatible 2D augmentations.</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L149" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="149"></td>
+          <td id="file-transformations-py-LC149" class="blob-code blob-code-inner js-file-line"><span class="pl-s">    Wraps an augmentation so it can be used within the provided transform pipeline.</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L150" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="150"></td>
+          <td id="file-transformations-py-LC150" class="blob-code blob-code-inner js-file-line"><span class="pl-s">    See https://github.com/albu/albumentations for more information.</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L151" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="151"></td>
+          <td id="file-transformations-py-LC151" class="blob-code blob-code-inner js-file-line"><span class="pl-s">    Expected input: (spatial_dims)  -&gt; No (C)hannel dimension</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L152" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="152"></td>
+          <td id="file-transformations-py-LC152" class="blob-code blob-code-inner js-file-line"><span class="pl-s">    Expected target: (spatial_dims) -&gt; No (C)hannel dimension</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L153" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="153"></td>
+          <td id="file-transformations-py-LC153" class="blob-code blob-code-inner js-file-line"><span class="pl-s">    Iterates over the slices of a input-target pair stack and performs the same albumentation function.</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L154" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="154"></td>
+          <td id="file-transformations-py-LC154" class="blob-code blob-code-inner js-file-line"><span class="pl-s">    """</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L155" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="155"></td>
+          <td id="file-transformations-py-LC155" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L156" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="156"></td>
+          <td id="file-transformations-py-LC156" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">def</span> <span class="pl-en">__init__</span>(<span class="pl-s1">self</span>, <span class="pl-s1">albumentation</span>: <span class="pl-v">Callable</span>):</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L157" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="157"></td>
+          <td id="file-transformations-py-LC157" class="blob-code blob-code-inner js-file-line">        <span class="pl-s1">self</span>.<span class="pl-s1">albumentation</span> <span class="pl-c1">=</span> <span class="pl-v">A</span>.<span class="pl-v">ReplayCompose</span>([<span class="pl-s1">albumentation</span>])</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L158" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="158"></td>
+          <td id="file-transformations-py-LC158" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L159" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="159"></td>
+          <td id="file-transformations-py-LC159" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">def</span> <span class="pl-en">__call__</span>(<span class="pl-s1">self</span>, <span class="pl-s1">inp</span>: <span class="pl-s1">np</span>.<span class="pl-s1">ndarray</span>, <span class="pl-s1">tar</span>: <span class="pl-s1">np</span>.<span class="pl-s1">ndarray</span>):</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L160" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="160"></td>
+          <td id="file-transformations-py-LC160" class="blob-code blob-code-inner js-file-line">        <span class="pl-c"># input, target</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L161" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="161"></td>
+          <td id="file-transformations-py-LC161" class="blob-code blob-code-inner js-file-line">        <span class="pl-s1">tar</span> <span class="pl-c1">=</span> <span class="pl-s1">tar</span>.<span class="pl-en">astype</span>(<span class="pl-s1">np</span>.<span class="pl-s1">uint8</span>)  <span class="pl-c"># target has to be in uint8</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L162" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="162"></td>
+          <td id="file-transformations-py-LC162" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L163" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="163"></td>
+          <td id="file-transformations-py-LC163" class="blob-code blob-code-inner js-file-line">        <span class="pl-s1">input_copy</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">copy</span>(<span class="pl-s1">inp</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L164" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="164"></td>
+          <td id="file-transformations-py-LC164" class="blob-code blob-code-inner js-file-line">        <span class="pl-s1">target_copy</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">copy</span>(<span class="pl-s1">tar</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L165" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="165"></td>
+          <td id="file-transformations-py-LC165" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L166" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="166"></td>
+          <td id="file-transformations-py-LC166" class="blob-code blob-code-inner js-file-line">        <span class="pl-s1">replay_dict</span> <span class="pl-c1">=</span> <span class="pl-s1">self</span>.<span class="pl-en">albumentation</span>(<span class="pl-s1">image</span><span class="pl-c1">=</span><span class="pl-s1">inp</span>[<span class="pl-c1">0</span>])[<span class="pl-s">'replay'</span>]  <span class="pl-c"># perform an albu on one slice and access the replay dict</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L167" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="167"></td>
+          <td id="file-transformations-py-LC167" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L168" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="168"></td>
+          <td id="file-transformations-py-LC168" class="blob-code blob-code-inner js-file-line">        <span class="pl-c"># TODO: consider cases with RGB 3D or multimodal 3D input</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L169" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="169"></td>
+          <td id="file-transformations-py-LC169" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L170" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="170"></td>
+          <td id="file-transformations-py-LC170" class="blob-code blob-code-inner js-file-line">        <span class="pl-c"># only if input_shape == target_shape</span></td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L171" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="171"></td>
+          <td id="file-transformations-py-LC171" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">for</span> <span class="pl-s1">index</span>, (<span class="pl-s1">input_slice</span>, <span class="pl-s1">target_slice</span>) <span class="pl-c1">in</span> <span class="pl-en">enumerate</span>(<span class="pl-en">zip</span>(<span class="pl-s1">inp</span>, <span class="pl-s1">tar</span>)):</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L172" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="172"></td>
+          <td id="file-transformations-py-LC172" class="blob-code blob-code-inner js-file-line">            <span class="pl-s1">result</span> <span class="pl-c1">=</span> <span class="pl-v">A</span>.<span class="pl-v">ReplayCompose</span>.<span class="pl-en">replay</span>(<span class="pl-s1">replay_dict</span>, <span class="pl-s1">image</span><span class="pl-c1">=</span><span class="pl-s1">input_slice</span>, <span class="pl-s1">mask</span><span class="pl-c1">=</span><span class="pl-s1">target_slice</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L173" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="173"></td>
+          <td id="file-transformations-py-LC173" class="blob-code blob-code-inner js-file-line">            <span class="pl-s1">input_copy</span>[<span class="pl-s1">index</span>] <span class="pl-c1">=</span> <span class="pl-s1">result</span>[<span class="pl-s">'image'</span>]</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L174" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="174"></td>
+          <td id="file-transformations-py-LC174" class="blob-code blob-code-inner js-file-line">            <span class="pl-s1">target_copy</span>[<span class="pl-s1">index</span>] <span class="pl-c1">=</span> <span class="pl-s1">result</span>[<span class="pl-s">'mask'</span>]</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L175" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="175"></td>
+          <td id="file-transformations-py-LC175" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-transformations-py-L176" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="176"></td>
+          <td id="file-transformations-py-LC176" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">return</span> <span class="pl-s1">input_copy</span>, <span class="pl-s1">target_copy</span></td>
+        </tr>
+  </tbody></table>
+</div>
+
+
+    </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/johschmidt42/67ea1227569c4b7fcd04e4f6477a2a2d/raw/a99f38d268a72142728ecbb5405230a40bf011cb/transformations.py" style="float:right">view raw</a>
+        <a href="https://gist.github.com/johschmidt42/67ea1227569c4b7fcd04e4f6477a2a2d#file-transformations-py">
+          transformations.py
+        </a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+<script>var height = -1; var delayMs = 200; if (document) {document.domain = document.domain;}function notifyResize(height) {height = height ? height : document.documentElement.offsetHeight; var resized = false; if (window.donkey && donkey.resize) {donkey.resize(height);var elements = document.getElementsByClassName("gist-data"); for (var i = 0; i < elements.length; i++) {elements[i].style.overflow = "visible"}resized = true;}if (parent && parent._resizeIframe) {var obj = {iframe: window.frameElement, height: height}; parent._resizeIframe(obj); resized = true;}if (window.location && window.location.hash === "#amp=1" && window.parent && window.parent.postMessage) {window.parent.postMessage({sentinel: "amp", type: "embed-size", height: height}, "*");}if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.resize) {window.webkit.messageHandlers.resize.postMessage(height); resized = true;}return resized;}function maybeResize() {try {if (document.documentElement.offsetHeight != height && notifyResize()) {height = document.documentElement.offsetHeight;}delayMs = Math.min(delayMs * 2, 1000000); setTimeout(maybeResize, delayMs);} catch(error) {console.log('maybeResize error: ', error)}}maybeResize();</script><script defer="" src="./vaafb692b2aea4879b33c060e79fe94621666317369993" integrity="sha512-0ahDYl866UMhKuYcW078ScMalXqtFJggm7TmlUtp0UlD4eQk0Ixfnm5ykXKvGJNFjLMoortdseTfsRT8oCfgGA==" data-cf-beacon="{&quot;rayId&quot;:&quot;76c24597884c56bc&quot;,&quot;token&quot;:&quot;0b5f665943484354a59c39c6833f7078&quot;,&quot;version&quot;:&quot;2022.11.0&quot;,&quot;si&quot;:100}" crossorigin="anonymous"></script>
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
